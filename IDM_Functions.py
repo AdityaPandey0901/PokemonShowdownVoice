@@ -1,6 +1,6 @@
 #Pokemon Showdown Voice Controller
 #Integrated Dialogue Manager Functions
-#Aditya Pandey, Nitish Mallick, Savya Sachi Pandey, Vivek Kumar
+#Aditya Pandey
 #Note: Check the README and report for a full understanding of how this works
 
 from poke_env import PlayerConfiguration
@@ -93,50 +93,51 @@ def pred_gpt(
         temperature = 0.0,
 ):
 
+	with open('key.txt') as f:
+	    openai.api_key = f.read()
 
-    openai.api_key = "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"
-    messages_prompt = [
-        {"role": "user", "content": """You are an expert in Pokemon names and moves.
-        You are given a text command made by a pokemon trainer in battle, and need to parse
-         it into its intent, its subject, and its object. There are only two types of intents: either 'attack'
-         or 'switch'. An attack refers to commanding the pokemon to attack. A switch refers to
-        switching out the current pokemon for another pokemon. The object will correspondingly be the
-        move the user wants the pokemon to use, or the name of the pokemon the user will switch to.
-         Give respones in the form (intent, object).
-        If there is no clear subject, then the subject is the current_pokemon."""}
-        ]
+	    messages_prompt = [
+	        {"role": "user", "content": """You are an expert in Pokemon names and moves.
+	        You are given a text command made by a pokemon trainer in battle, and need to parse
+	         it into its intent, its subject, and its object. There are only two types of intents: either 'attack'
+	         or 'switch'. An attack refers to commanding the pokemon to attack. A switch refers to
+	        switching out the current pokemon for another pokemon. The object will correspondingly be the
+	        move the user wants the pokemon to use, or the name of the pokemon the user will switch to.
+	         Give respones in the form (intent, object).
+	        If there is no clear subject, then the subject is the current_pokemon."""}
+	        ]
 
-    #Lets get the few shot examples in
-    for each in few_shot_examples:
-      prompt={"role":"user","content":each["prompt"]}
-      answer={"role":"assistant","content":each["label"]}
-      messages_prompt.append(prompt)
-      messages_prompt.append(answer)
+	    #Lets get the few shot examples in
+	    for each in few_shot_examples:
+	      prompt={"role":"user","content":each["prompt"]}
+	      answer={"role":"assistant","content":each["label"]}
+	      messages_prompt.append(prompt)
+	      messages_prompt.append(answer)
 
-    #Now lets get our test prompt in
-    test={"role":"user","content":test_prompt}
-    messages_prompt.append(test)
+	    #Now lets get our test prompt in
+	    test={"role":"user","content":test_prompt}
+	    messages_prompt.append(test)
 
-    model_output = None
+	    model_output = None
 
-    while True:
-        try:
-            response=openai.ChatCompletion.create(
-              model="gpt-3.5-turbo",
-              messages=messages_prompt,
-              max_tokens=max_tokens,
-              temperature=temperature,
-            )
-            model_output=response['choices'][0]['message']['content']
-            time.sleep(1) # to prevent rate limit error
-            break
-        except (openai.error.APIConnectionError, openai.error.RateLimitError, openai.error.Timeout, openai.error.ServiceUnavailableError) as e:
-            #Sleep and try again
-            print(f"Couldn't get response due to {e}. Trying again!")
-            time.sleep(20)
-            continue
+	    while True:
+	        try:
+	            response=openai.ChatCompletion.create(
+	              model="gpt-3.5-turbo",
+	              messages=messages_prompt,
+	              max_tokens=max_tokens,
+	              temperature=temperature,
+	            )
+	            model_output=response['choices'][0]['message']['content']
+	            time.sleep(1) # to prevent rate limit error
+	            break
+	        except (openai.error.APIConnectionError, openai.error.RateLimitError, openai.error.Timeout, openai.error.ServiceUnavailableError) as e:
+	            #Sleep and try again
+	            print(f"Couldn't get response due to {e}. Trying again!")
+	            time.sleep(20)
+	            continue
 
-    return model_output
+	    return model_output
 
 
 #################################################################
