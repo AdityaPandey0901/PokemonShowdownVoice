@@ -1,5 +1,8 @@
 # PokemonShowdownVoice
 A Voice Controller for Pokemon Showdown
+https://www.youtube.com/watch?v=u9tnhb0MlcI&ab_channel=AdityaPandeey
+
+[![Poke_PIc](https://github.com/AdityaPandey0901/PokemonShowdownVoice/assets/17527776/e6d8a95d-3254-4f2f-8a00-6dc56767d739)](https://www.youtube.com/watch?v=u9tnhb0MlcI&ab_channel=AdityaPandeey)
 
 
 ## Introduction
