@@ -1,5 +1,5 @@
 # PokemonShowdownVoice
-An NLP Voice Controller for Pokemon Showdown, using phonemic encodings to expand knowledge boundaries.
+An NLP Voice Controller for Pokemon Showdown and Words: using phonemic encodings to parse foreign tokens in speech to text systems.
 https://www.youtube.com/watch?v=u9tnhb0MlcI&ab_channel=AdityaPandeey
 
 [![Poke_PIc](https://github.com/AdityaPandey0901/PokemonShowdownVoice/assets/17527776/e6d8a95d-3254-4f2f-8a00-6dc56767d739)](https://www.youtube.com/watch?v=u9tnhb0MlcI&ab_channel=AdityaPandeey)
